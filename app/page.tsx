@@ -1,4 +1,5 @@
 import HeroSection from "@/components/hero-section";
+import StatsSection from "@/components/stats-3";
 import TeamSection from "@/components/team";
 import { FeatherIcon } from "lucide-react";
 import { Feature } from "motion";
@@ -8,10 +9,12 @@ export default function Home() {
   return (
     <div>
       <HeroSection/>
-      <Feature />
-      <IntersectionSection />  
+      {/* <Feature /> */}
+      {/* <IntersectionSection />   */}
       <StatsSection />
       <TeamSection />
+
+  
        </div>
           
   );
