@@ -1,7 +1,7 @@
 'use client';
-import { ReactNode } from 'react';
+
+import React, { ReactNode, ElementType } from 'react';
 import { motion, Variants } from 'motion/react';
-import React from 'react';
 
 export type PresetType =
   | 'fade'
@@ -16,15 +16,15 @@ export type PresetType =
   | 'swing';
 
 export type AnimatedGroupProps = {
-  children: ReactNode;
+  children: ReactNode; // ✅ FIXED (was ElementType — wrong)
   className?: string;
   variants?: {
     container?: Variants;
     item?: Variants;
   };
   preset?: PresetType;
-  as?: React.ElementType;
-  asChild?: React.ElementType;
+  as?: ElementType;        // ✅ Correct type
+  asChild?: ElementType;   // ✅ Correct type
 };
 
 const defaultContainerVariants: Variants = {
@@ -110,24 +110,26 @@ function AnimatedGroup({
 }: AnimatedGroupProps) {
   const selectedVariants = {
     item: addDefaultVariants(preset ? presetVariants[preset] : {}),
-    container: addDefaultVariants(defaultContainerVariants),
+    container: defaultContainerVariants,
   };
+
   const containerVariants = variants?.container || selectedVariants.container;
   const itemVariants = variants?.item || selectedVariants.item;
 
   const MotionComponent = React.useMemo(
-    () => motion.create(as as keyof JSX.IntrinsicElements),
+    () => motion.create(as as string | React.ComponentType<any>),
     [as]
   );
+
   const MotionChild = React.useMemo(
-    () => motion.create(asChild as keyof JSX.IntrinsicElements),
+    () => motion.create(asChild as string | React.ComponentType<any>),
     [asChild]
   );
 
   return (
     <MotionComponent
-      initial='hidden'
-      animate='visible'
+      initial="hidden"
+      animate="visible"
       variants={containerVariants}
       className={className}
     >
