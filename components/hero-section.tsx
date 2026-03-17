@@ -160,20 +160,7 @@ export default function HeroSection() {
                             </div>
                         </div>
 
-                        <AnimatedGroup
-                            variants={{
-                                container: {
-                                    visible: {
-                                        transition: {
-                                            staggerChildren: 0.05,
-                                            delayChildren: 0.75,
-                                        },
-                                    },
-                                },
-                                item: transitionVariants.item,
-                            }}>
-                           
-                        </AnimatedGroup>
+                        
                     </div>
                 </section>
                 <section className="bg-background pb-16 pt-16 md:pb-32">
